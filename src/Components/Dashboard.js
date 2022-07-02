@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { MyContaxt } from './Context';
 
 const Dashboard = () => {
+    const myValue = useContext(MyContaxt)
     const handleSumbit = () => {
         localStorage.removeItem("token");
         window.location.reload();
@@ -9,6 +11,7 @@ const Dashboard = () => {
         <>
             <div>
                 <h1>Welcome to Dashboard</h1>
+                <p>{myValue}</p>
             </div>
             <div>
                 <button onClick={handleSumbit}>Logout</button>
