@@ -1,10 +1,19 @@
 import { Button, Grid, Paper, TextField } from '@mui/material';
 import { Container } from '@mui/system';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { MyContaxt } from './Context';
 
 const Login = () => {
+
+    const myValue = useContext(MyContaxt)
+    const changeLogin = (e) =>{
+        console.log('change login is called ',e)
+        myValue.changeLoginStatus(1)
+    }
+    // console.log("my value is", myValue)
+
     const [msg, setMsg] = useState();
     const navigate = useNavigate();
     const [values, setValues] = useState({
@@ -19,11 +28,13 @@ const Login = () => {
                 password: values.pass
             })
            /* .then(res => console.log(res)) */
-            .then((res) => {                
+            .then((res) => {            
                 localStorage.setItem("token",res.data.token)
-                navigate("/dashboard");
+                navigate("/dashboard")
+                changeLogin(1)
             })
             .catch(err => {
+                console.log('error')
                 // console.log("This is error",err.response.data.error) 
                 setMsg(err.response.data.error)
                 // console.error(err)
